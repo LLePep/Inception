@@ -1,0 +1,6 @@
+Docker compose:
+Nginx + TLS 1.2 or 1.3
+
+WordPress + php+ fpm
+
+MariaDB
