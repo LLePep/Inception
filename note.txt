@@ -24,6 +24,14 @@ PID1 l'isolation provoque par les namespace servent aussi a faire croire que not
 
 Le PID1 est le process parent de tous les process quand on boot notre os.
 
+-Difference entre Alpine et Debian pour Docker:
+Alpine est une distribution Linux qui utilise musl fortement utilise pour la securite et la legerete, alors que debian elle utilise glibc
+dans notre cas on se souciera pas des effets de securite que apporte alpine et on utilisera tout dememe une version distroless de Debian pour avoir tout de meme la conscience que les failles de securite sont problematiques.
+
+-Musl vs glibc les difference:
+glibc est plus lourde a compiler que musl mise a jour depuis une decennie presque, si elle est plus lourde elle est bien plus adaptable a bcq de systeme et optimise pour la compilation de projet moderne,
+tandis que musl est tout l'inverse plus legere, plus rapide, mais bien moins adaptable, elle est presente sur de projet plus leger et surtout niveau securite elle devient optimal.
+
 -Best practise for writing an DockerFiles?
 
 Les bonnes pratique pour utiliser Docker c'est de reflechir de facon mise en cache et UnionFS avec nos installations.
