@@ -86,3 +86,97 @@ WordPress + php+ fpm
 
 MariaDB
 Qu'est ce que un daemon 
+
+"Pour la creation de mon container je devrais specifier l'endroit de mon volume" 
+
+DockerFiles
+
+BEST_PRACTISE:
+
+REBUILD_IMAGE (Toujours placer les instructions qui bouge le moins en haut du fichier)
+reflichir sous forme de layer pour gerer les rebuild de nos images
+--pull
+--no-cache desactive la construction depuis le cache, attention la nouvelle version de la base de l'image n'est peut etre pas pull
+.dockerignore utilisation similaire a .gitignore
+Faire en sorte que notre image est la plus ephemere la plus possible, faire attention aux packages installe
+--no-install-recommends utile
+
+NOTION:
+
+le "shell and exec form", le shell form execute de facon brut du code de la
+meme maniere que l'on pourrai le faire dans un terminal, alors que le exec form,
+il utilise un json(where each element in the array is a command, flag, or argument) ou il fera appel a une commande shell specifique
+deplus la gestion des signaux est bien meilleur, car mon application est directement le PID 1, hors avec un shell exec on tombe sur le PID 2
+si docker envoi un SIGTERM /bin/sh ne le propage pas et l'application ne libere pas les ressources c'est donc un SIGKILL qui est envoye apres
+INSTRUCTION ["executable","param1","param2"] (exec form)
+INSTRUCTION command param1 param2            (shell form)
+
+
+FROM
+
+Sert a initialiser une nouvelle session de construction de docker image, cette image servira de base pour la suite des instructions
+il suffit de specifier une distribution pour notre image.
+
+RUN
+
+RUN creer une couche sur notre image qui servira quand notre "docker build" s'effectue pour l'execution des commandes
+mises dedans on prefere execute qu'un seul appel a notre manager de packes pour avoir moins de layer dans nos images 
+
+ENTRYPOINT && CMD
+
+Ces deux mots cles sont a differencier mais ils travaillent ensemble. ENTRYPOINT sert surtout defnir la commande
+principal (on surcharge rarement option: --entrypoint), CMD est tout l'inverse elle est surtout la, pour
+surcharge les arguments de la commande principal tres facilement.
+
+LABEL
+
+Sert a creer des metadonnees dans notre image docker, pour acceder a ces donnees il suffit
+de taper "docker inspect <image>"
+
+ENV
+
+Sert a set les variables d'environnements a l'interieur de mon container, elles peuvent etre surcharge
+avec l'option -e
+
+ARG
+
+Sert a set des variables de build-time, elle est donc temporaire lors de la creation mon container:
+attention la Doc officiel conseille de ne pas mettre des donnees sensible lors de la creation car
+celle-ci peuvent etre de nouveaux recuperer grace a un docker history <image>
+Ps: different des variables d'environnements !
+
+ADD && COPY
+
+Elles sont tres similaires mais ADD gere les URL, les extractions aussi, les deux permettent de copier un espace
+de notre architecture dans le container.
+PS: Regle utiliser COPY car ADD est plus pousse
+
+VOLUME
+
+Sert a la creation de volume dans notre container si aucun point d'accroche est specifier 
+docker gere le volume a sa facon.
+a eclaicir: docker run -v ou un docker-compose.yml
+
+WORKDIR
+
+Sert a se positionner dans un repertoire lors de l'exec du container et pendant le build.
+
+EXPOSE
+
+Expose est avant tout une indication, il ne faut pas l'associer directement au mappage des ports
+de notre machine. le mappage ce fait d'abord avec l'option -p, neanmoins il a tout de meme un effets
+tres sympa sur un network de docker si le port sont bien mapper avec notre EXPOSE la communication peut alors
+s'effectuer
+
+
+
+Refaire les VOLUME
+VOLUME
+
+"si aucun point d'accroche n'est spécifié, Docker gère le volume à sa façon"
+
+La formulation reste confuse. Ce que fait VOLUME dans un Dockerfile c'est toujours créer un volume anonyme géré par Docker — il n'y a pas de condition. Ta note "à éclaircir" est honnête, mais autant corriger directement :
+
+VOLUME dans le Dockerfile → volume anonyme, géré par Docker
+-v nom:/chemin au run → volume nommé, que tu contrôles
+-v /host:/chemin au run → bind mount, pointe vers ton filesystem
