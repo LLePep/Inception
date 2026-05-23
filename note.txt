@@ -151,7 +151,7 @@ attention la Doc officiel conseille de ne pas mettre des donnees sensible lors d
 celle-ci peuvent etre de nouveaux recuperer grace a un docker history <image>
 Ps: different des variables d'environnements !
 
-ADD && COPY
+ADD && COPY <host-path> <image-path>
 
 Elles sont tres similaires mais ADD gere les URL, les extractions aussi, les deux permettent de copier un espace
 de notre architecture dans le container.

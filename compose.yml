@@ -1,0 +1,17 @@
+services:
+ wordpress:
+  image: wordpress
+  restart: on-failure
+  environnement:
+   
+  volumes:
+   - PATH_User
+ mariaDB:
+  image: mariaDB
+  restart: on-failure
+  environnement:
+  volume:
+   - PATH_User
+volumes:
+ wordpress: PATH_HOST
+ mariaDB: PATH_HOST
