@@ -1,0 +1,13 @@
+tools/*
+
+README.md
+.yml
+
+.git
+.gitignore
+
+.env
+*.env
+
+.log
+.cache/

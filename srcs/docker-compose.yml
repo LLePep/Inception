@@ -1,17 +1,37 @@
+version: '3.8'
+
 services:
- wordpress:
-  image: wordpress
+ mariadb:
+  container_name: mariadb
+  networks:
+    - inception
+  build:
+    context: requirements/mariadb/Dockerfile
+    Dockerfile: mariadb.dockerfile
+  env_file: .env
   restart: on-failure
-  environnement:
-   
-  volumes:
-   - PATH_User
- mariaDB:
-  image: mariaDBa
-  restart: on-failure
-  environnement:
   volume:
-   - PATH_User
+   - /home/login/data/mariadb
+ wordpress:
+  container_name: wordpress
+  networks:
+    - inception
+  build:
+    context: requirements/wordpress/Dockerfile
+    Dockerfile: wordpress.dockerfile
+  restart: on-failure
+  env_file: .env
+  volumes:
+   - /home/login/data/wordpress
+ nginx:
+  container_name: nginx
+  networks:
+    - inception
+  build:
+    context: requirements/nginx/Dockerfile
+    Dockerfile: nginx.dockerfile
+  restart: on-failure
+
 volumes:
  wordpress: PATH_HOST
- mariaDB: PATH_HOSTs
+ mariaDB: PATH_HOST
