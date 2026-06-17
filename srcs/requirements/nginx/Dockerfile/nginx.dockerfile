@@ -6,6 +6,7 @@ FROM $base:$version
 
 RUN apt update && apt install -y \
     nginx \
+    openssl \
     && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /etc/nginx/ssl && \
@@ -13,6 +14,9 @@ RUN mkdir -p /etc/nginx/ssl && \
     -keyout /etc/nginx/ssl/nginx-selfsigned.key \
     -out /etc/nginx/ssl/nginx-selfsigned.crt \
     -subj "/C=FR/ST=Rhone/L=Lyon/O=42/OU=42Lyon/CN=lpalabos.42.fr"
+
+RUN chmod 755 /var/www/html \
+    chown -R www-data:www-data /var/www/html
 
 RUN ln -sf /dev/stdout /var/log/nginx/access.log \
     && ln -sf /dev/stderr /var/log/nginx/error.log
