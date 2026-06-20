@@ -498,4 +498,4 @@ en contrepartie de l'economie de RAM faite sur les heure creuses
 dynamic: il creer/detruit des child selon la demande qui vient c'est une bonne option pour les infras de taille moyenne et qui fluctuent.
 Ondemand: donc "Sur demande" c'est a dire qui creer/detruit des childs que sur demande/absence c'est un bon mode pour les petits infras. 
 
-
+//refaire les directions des scripts, pk ne pas faire la page html et lancer tout ca. Sur la VM.

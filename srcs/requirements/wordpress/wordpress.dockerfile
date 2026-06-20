@@ -22,7 +22,7 @@ RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.ph
 
 COPY conf/php-fpm.conf /etc/php/8.2/fpm/php-fpm.conf
 
-COPY conf/auto_config.sh /usr/local/bin/auto_config.sh
+COPY tools/auto_config.sh /usr/local/bin/auto_config.sh
 RUN chmod +x usr/local/bin/auto_config.sh
 
 EXPOSE 9000

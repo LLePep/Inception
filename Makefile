@@ -1,3 +1,0 @@
-
-.env:
-	@echo "GIT_COMMIT=$(git rev-parse --short HEAD)" > .env
