@@ -8,7 +8,6 @@ RUN apt update && apt install -y \
     openssl \
     && rm -rf /var/lib/apt/lists/*
 
-# Génération des certificats SSL (Parfait !)
 RUN mkdir -p /etc/nginx/ssl && \
     openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
     -keyout /etc/nginx/ssl/nginx-selfsigned.key \
@@ -18,22 +17,14 @@ RUN mkdir -p /etc/nginx/ssl && \
 RUN chmod 755 /var/www/html \
     && chown -R www-data:www-data /var/www/html
 
-# Redirection des logs (Très bien pour Docker)
 RUN ln -sf /dev/stdout /var/log/nginx/access.log \
     && ln -sf /dev/stderr /var/log/nginx/error.log
 
-# =================================================================
-# CORRECTIONS ICI :
-# =================================================================
 
-# 1. On vire la config par défaut de Debian pour éviter les conflits
-RUN rm -f /etc/nginx/sites-enabled/default \
-    && rm -f /etc/nginx/sites-available/default
+COPY conf/nginx.conf /etc/nginx/conf.d/
 
-# 2. On copie ton fichier au BON endroit (dans conf.d)
-COPY conf/nginx.conf /etc/nginx/conf.d/inception.conf
-
-# 3. On expose uniquement le port HTTPS
 EXPOSE 443
 
 ENTRYPOINT [ "nginx" ]
+
+CMD [ "-g", "daemon off;" ]
