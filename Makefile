@@ -7,6 +7,7 @@ all: dir
 dir:
 	mkdir -p /home/$(USERNAME)/data/mariadb
 	mkdir -p /home/$(USERNAME)/data/wordpress
+	git rev-parse --short HEAD >> srcs/.env
 
 clean:
 	@echo "Stopping containers and deleting images"

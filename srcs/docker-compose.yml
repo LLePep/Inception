@@ -1,5 +1,6 @@
 services:
  mariadb:
+  image: ${DOMAIN_NAME}/inception/mariadb:${GIT_VERSION}
   container_name: mariadb
   networks:
     - inception
@@ -13,6 +14,7 @@ services:
   expose:
    - "3306"
  wordpress:
+  image: ${DOMAIN_NAME}/inception/wordpress:${GIT_VERSION}
   container_name: wordpress
   networks:
     - inception
@@ -28,6 +30,7 @@ services:
   expose:
     - "9000"
  nginx:
+  image: ${DOMAIN_NAME}/inception/nginx:${GIT_VERSION}
   container_name: nginx
   networks:
     - inception
