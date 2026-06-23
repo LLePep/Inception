@@ -2,7 +2,7 @@ USERNAME := lpalabos
 
 all: dir
 	@echo "Running containers"
-	docker compose --env-file 'srcs/.env' --project-directory 'srcs' -p Inception42 up --build -d
+	docker compose --env-file 'srcs/.env' --project-directory 'srcs' -p inception42 up -d
 
 dir:
 	mkdir -p /home/$(USERNAME)/data/mariadb
@@ -10,7 +10,7 @@ dir:
 
 clean:
 	@echo "Stopping containers and deleting images"
-	docker compose --project-directory 'srcs/' -p Inception42 down --rmi all
+	docker compose --project-directory 'srcs/' -p inception42 down --rmi all
 
 fclean: clean
 	@echo "Suppression of volumes"
