@@ -2,7 +2,7 @@ USERNAME := lpalabos
 
 all: dir
 	@echo "Running containers"
-	docker compose --env-file 'srcs/.env' --project-directory 'srcs' -p inception42 up -d
+	docker compose --env-file 'srcs/.env' --project-directory 'srcs' -p inception42 up --build -d
 
 dir:
 	mkdir -p /home/$(USERNAME)/data/mariadb
