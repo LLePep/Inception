@@ -9,9 +9,9 @@ if [ ! -f /var/www/wordpress/wp-config.php ]; then
     wp core download --allow-root
 
 	wp config create	--allow-root \
-	--dbname=$SQL_DATABASE \
-	--dbuser=$SQL_USER \
-	--dbpass=$SQL_PASSWORD \
+	--dbname=$MYSQL_DATABASE \
+	--dbuser=$MYSQL_USER \
+	--dbpass=$MYSQL_PASSWORD \
     --dbhost=mariadb:3306 --path='/var/www/html'
     wp core install --url=https://$DOMAIN_NAME:443 \
     --title=$WP_TITLE \

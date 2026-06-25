@@ -40,6 +40,8 @@ services:
     context: requirements/nginx
     dockerfile: dockerfile
   restart: on-failure
+  depends_on:
+   - wordpress
   env_file: .env
   ports:
    - "443:443"
