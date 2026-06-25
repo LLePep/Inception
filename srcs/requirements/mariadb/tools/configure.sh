@@ -10,6 +10,11 @@ if [ ! -d "/var/lib/mysql/mysql" ]; then
     mysql_install_db --user=mysql --datadir=/var/lib/mysql > /dev/null
 fi
 
+chown -R mysql:mysql /var/lib/mysql
+chown -R mysql:mysql /run/mysqld
+chmod -R 755 /var/lib/mysql
+chmod -R 755 /run/mysqld
+
 # Start the server (no networking for setup)
 echo "Starting temporary MariaDB server for setup..."
 mysqld --skip-networking --socket=/run/mysqld/mysqld.sock --user=mysql &
@@ -37,12 +42,6 @@ echo "Shutting down temporary MariaDB..."
 mysqladmin --socket=/run/mysqld/mysqld.sock -u root -p"${MYSQL_ROOT_PASSWORD}" shutdown
 
 wait "$pid" || true
-
-mkdir -p /var/run/mysqld
-chown -R mysql:mysql /var/run/mysqld
-
-rm -f /var/run/mysqld/mysqld.pid
-rm -f /var/run/mysqld/mysqld.sock
 
 # Start MariaDB normally (with networking)
 echo "Initialization complete. Starting MariaDB..."
