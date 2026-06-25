@@ -41,6 +41,9 @@ wait "$pid" || true
 mkdir -p /var/run/mysqld
 chown -R mysql:mysql /var/run/mysqld
 
+rm -f /var/run/mysqld/mysqld.pid
+rm -f /var/run/mysqld/mysqld.sock
+
 # Start MariaDB normally (with networking)
 echo "Initialization complete. Starting MariaDB..."
 exec mysqld
