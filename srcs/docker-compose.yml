@@ -39,6 +39,8 @@ services:
   build:
     context: requirements/nginx
     dockerfile: dockerfile
+  depends_on:
+   - wordpress
   restart: on-failure
   env_file: .env
   ports:
