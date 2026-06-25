@@ -2,7 +2,7 @@
 
 sleep 10
 
-if [ ! -f /var/www/wordpress/wp-config.php ]; then
+if [ ! -f /var/www/html/wp-config.php ]; then
 
     cd /var/www/html
 
@@ -19,6 +19,7 @@ if [ ! -f /var/www/wordpress/wp-config.php ]; then
     --admin_password=$WP_PASSWORD \
     --admin_email=$WP_EMAIL \
     --allow-root \
+    --path='/var/www/html' \
     --skip-email
     wp user create username username@gmail.com \
     --allow-root \
