@@ -4,6 +4,10 @@ set -e
 
 echo "Starting MariaDB initialization..."
 
+#logs
+mkdir -p /var/run/mysqld /var/log/mysql
+chown -R mysql:mysql /var/run/mysqld /var/log/mysql
+
 # Sécurité : On s'assure que le dossier du socket existe et appartient à mysql
 mkdir -p /var/run/mysqld
 chown -R mysql:mysql /var/run/mysqld
