@@ -1,22 +1,14 @@
 [mysqld]
 user = mysql
-pid-file = /var/run/mysqld.mysqld.pid
-#basedir = Pour l'instant pas besoin je pense 
+pid-file = /var/run/mysqld/mysqld.pid
 datadir = /var/lib/mysql
-#A relier a /home/lpalabos/data sur ma VM
 tmpdir = /tmp
-socket  = /run/mysqld/mysqld.sock
+socket = /var/run/mysqld/mysqld.sock
 port = 3306
 
 skip-name-resolve
-#skip le reverse DNS inutile sur Docker
 
 bind-address = 0.0.0.0
-#permet l'adressage dynamique de Docker
-
-#Gestion des ressources flemmes de me pencher
-#dessus pour un container de mariaDB le jour je fais tourner une vrai DB, oui.
 
 general_log_file = /var/log/mysql/mysql.log
 general_log = 1
-#C'est a but educatif de savoir ce qu'il ce passe dans mon service
