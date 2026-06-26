@@ -1,5 +1,4 @@
 ARG base=debian
-
 ARG version=bookworm-slim
 
 FROM $base:$version
@@ -18,8 +17,10 @@ RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.ph
 
 COPY conf/php-fpm.conf /etc/php/8.2/fpm/php-fpm.conf
 
+RUN mkdir -p /run/php
+
 COPY tools/auto_config.sh /usr/local/bin/auto_config.sh
-RUN chmod +x usr/local/bin/auto_config.sh
+RUN chmod +x /usr/local/bin/auto_config.sh
 
 EXPOSE 9000
 

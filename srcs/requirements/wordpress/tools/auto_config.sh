@@ -6,7 +6,7 @@ if [ ! -f /var/www/html/wp-config.php ]; then
 
     cd /var/www/html
 
-    wp core download --allow-root
+    wp core download --version=7.0 --locale=fr_FR --allow-root
 
 	wp config create	--allow-root \
 	--dbname=$MYSQL_DATABASE \

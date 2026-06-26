@@ -40,9 +40,8 @@ GRANT ALL PRIVILEGES ON ${MYSQL_DATABASE}.* TO '${MYSQL_USER}'@'%';
 FLUSH PRIVILEGES;
 EOF
 
-# Shut down temporary server (CORRECTION : /var/run/mysqld/mysqld.sock)
 echo "Shutting down temporary MariaDB..."
-mysqladmin --socket=/var/run/mysqld/mysqld.sock -u root -p"${MYSQL_ROOT_PASSWORD}" shutdown
+kill -s TERM "$pid"
 
 wait "$pid" || true
 
@@ -50,7 +49,5 @@ wait "$pid" || true
 rm -f /var/run/mysqld/mysqld.pid
 rm -f /var/run/mysqld/mysqld.sock
 
-# CORRECTION : On lance mysqld SANS arguments de chemins. 
-# Il va lire ton 'mysql.cnf' qui contient déjà les bons chemins propres !
 echo "Initialization complete. Starting MariaDB normally..."
 exec mysqld
