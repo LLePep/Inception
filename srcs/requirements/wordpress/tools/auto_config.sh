@@ -1,6 +1,10 @@
 #!/bin/bash
 
-sleep 10
+echo "Waiting for MariaDB..."
+until wp db check --allow-root --path='/var/www/html' > /dev/null 2>&1; do
+    echo "Waiting ..."
+    sleep 2
+done
 
 if [ ! -f /var/www/html/wp-config.php ]; then
 
@@ -13,7 +17,7 @@ if [ ! -f /var/www/html/wp-config.php ]; then
 	--dbuser=$MYSQL_USER \
 	--dbpass=$MYSQL_PASSWORD \
     --dbhost=mariadb --path='/var/www/html'
-    wp core install --url=https://$DOMAIN_NAME:443 \
+    wp core install --url=https://$DOMAIN_NAME \
     --title=$WP_TITLE \
     --admin_user=$WP_USER \
     --admin_password=$WP_PASSWORD \
