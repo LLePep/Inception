@@ -4,7 +4,8 @@ echo "Starting wordpress install"
 
 if [ ! -f /var/www/html/wp-config.php ]; then
 
-    WP_PASSWORD=$(cat /run/secrets/wp_password)
+    WP_PASSWORD=$(cat /run/secrets/wp_password.txt)
+    MYSQL_PASSWORD=$(cat /run/secrets/db_password.txt)
 
     cd /var/www/html
 
