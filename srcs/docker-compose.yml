@@ -28,6 +28,7 @@ services:
   env_file: .env
   secrets:
    - wp_password
+   - db_password
   depends_on:
    - mariadb
   volumes:
