@@ -2,6 +2,9 @@
 
 set -e
 
+MYSQL_ROOT_PASSWORD=$(cat /run/secrets/db_root_password)
+MYSQL_PASSWORD=$(cat /run/secrets/db_password)
+
 echo "Starting MariaDB initialization..."
 
 #logs and volume
@@ -9,10 +12,7 @@ mkdir -p /var/run/mysqld /var/log/mysql
 chown -R mysql:mysql /var/run/mysqld /var/log/mysql
 
 # Initialize MySQL data directory if it doesn't exist
-if [ ! -d "/var/lib/mysql/mysql" ]; then
-
-    MYSQL_ROOT_PASSWORD=$(cat /run/secrets/db_root_password)
-    MYSQL_PASSWORD=$(cat /run/secrets/db_password)
+if [ ! -d "/var/lib/mysql/${MYSQL_DATABASE}" ]; then
 
     echo "Initializing data directory..."
     mysql_install_db --user=mysql --datadir=/var/lib/mysql > /dev/null
