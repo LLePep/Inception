@@ -4,6 +4,15 @@
 
 # Set Up Your Environment
 
+## Prerequisites
+
+- A Linux OS
+- Docker
+- Make and Git:
+```bash
+sudo apt install make git
+```
+
 ## Docker Installation
 
 Choose between Docker Desktop (GUI) or Docker Engine (CLI only) :
