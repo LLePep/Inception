@@ -2,9 +2,9 @@
 
 ---
 
-# Set Up Your Environment
+## Set Up Your Environment
 
-## Prerequisites
+### Prerequisites
 
 - A Linux OS
 - Docker
@@ -13,7 +13,7 @@
 sudo apt install make git
 ```
 
-## Docker Installation
+### Docker Installation
 
 Choose between Docker Desktop (GUI) or Docker Engine (CLI only) :
 - [Docker Engine](https://docs.docker.com/engine/install/)
@@ -24,7 +24,7 @@ Verify your installation :
 docker run hello-world
 ```
 
-## Clone the Repository
+### Clone the Repository
 
 ```bash
 git clone https://github.com/LLePep/Docker.git <folder_name>
@@ -60,7 +60,7 @@ srcs/secrets/wp_password.txt       → WordPress admin password
 
 ---
 
-# Build & Launch
+## Build & Launch
 
 ```bash
 make        # builds images and starts containers
@@ -75,9 +75,32 @@ make re     # rebuilds everything from scratch
 
 ---
 
-# Manage Containers and Volumes
+## Manage Containers and Volumes
 
-## Containers
+### Containers
+
+```bash
+# List running services
+docker compose -f path_dockercompose.yml -p project_name ps
+
+# Show logs of all services (or one in particular)
+docker compose -f path_dockercompose.yml -p project_name logs
+docker compose -f path_dockercompose.yml -p project_name logs <service_name>
+
+# Open a shell inside a service
+docker compose -f path_dockercompose.yml -p project_name exec <service_name> bash
+
+# Stop a specific service
+docker compose -f path_dockercompose.yml -p project_name stop <service_name>
+
+# Rebuild a specific service
+docker compose -f path_dockercompose.yml -p project_name build <service_name>
+
+# Stop and remove containers, networks (and optionally images/volumes)
+docker compose -f path_dockercompose.yml -p project_name down
+docker compose -f path_dockercompose.yml -p project_name down --rmi all
+docker compose -f path_dockercompose.yml -p project_name down --volumes
+```
 
 ```bash
 docker ps                        # list running containers
@@ -88,7 +111,7 @@ docker stop <service_name>       # stop a specific container
 docker rmi <image_name>          # remove a specific image
 ```
 
-## Volumes
+### Volumes
 
 ```bash
 docker volume ls                      # list all volumes
@@ -96,7 +119,7 @@ docker volume inspect <volume_name>   # inspect a specific volume
 docker volume prune                   # remove all unused volumes
 ```
 
-## Database
+### Database
 
 ```bash
 # Connect to MariaDB
@@ -123,7 +146,7 @@ DROP TABLE name;
 
 ---
 
-# Data Persistence
+## Data Persistence
 
 Project data is stored on the host machine and mounted into containers via bind volumes :
 
